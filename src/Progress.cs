@@ -154,7 +154,7 @@ namespace ConsoleProgressBar
             if (handler != null)
             {
                 var eventArgs = new ProgressChangedEventArgs(progress, messages);
-                InternalProgressChanged?.Invoke(this, eventArgs);
+                handler.Invoke(this, eventArgs);
             }
         }
 
