@@ -1,5 +1,7 @@
 # progress-hierarchy
 
+[![Build status](https://ci.appveyor.com/api/projects/status/608vb74fnm50iv8h/branch/master?svg=true)](https://ci.appveyor.com/project/fuzzykiller/progress-hierarchy/branch/master)
+
 Provides a .NET console progress bar that supports absolute reporting. Comes coupled with support for hierarchical progress reporting.
 
 The `Progress` class can be used without the progress bar. It’s thread-safe and lock-free. It is, however, not asynchronous. The `ProgressChanged` event handler will be called synchronously by the thread currently reporting its progress.
