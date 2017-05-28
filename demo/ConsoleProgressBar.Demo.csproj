@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>netcoreapp1.1</TargetFrameworks>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>True</DebugSymbols>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\src\ConsoleProgressBar.csproj" />
+  </ItemGroup>
+</Project>

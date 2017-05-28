@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard1.3;net45</TargetFrameworks>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AssemblyVersion>1.0</AssemblyVersion>
+    <FileVersion>1.0</FileVersion>
+    <Authors>Daniel Betz</Authors>
+    <Product>ProgressBar</Product>
+    <Description>Command-line progress bar &amp; high-performance thread-safe hierarchical progress reporting</Description>
+    <Copyright>Copyright © Daniel Betz 2017</Copyright>
+    <PackageId>ProgressBar</PackageId>
+    <PackageTags>progress progress-reporting thread-safe progress-bar command-line console</PackageTags>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net45'">
+    <AssemblyTitle>Progress Bar .NET 4.5</AssemblyTitle>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.3'">
+    <AssemblyTitle>Progress Bar .NET Standard 1.3</AssemblyTitle>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>True</DebugSymbols>
+  </PropertyGroup>
+</Project>
