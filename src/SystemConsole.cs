@@ -10,6 +10,8 @@ namespace ConsoleProgressBar
     {
         public int CursorTop => Console.CursorTop;
         public int CursorLeft => Console.CursorLeft;
+        public int WindowWidth => Console.WindowWidth;
+        public int BufferHeight => Console.BufferHeight;
         public void SetCursorPosition(int left, int top) => Console.SetCursorPosition(left, top);
         public void WriteLine() => Console.WriteLine();
         public void WriteLine(string value) => Console.WriteLine(value);
