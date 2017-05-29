@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ConsoleProgressBar
 {
+#if HAVE_EXCLUDE_FROM_COVERAGE
+    [ExcludeFromCodeCoverage]
+#endif
     internal class SystemConsole : IConsole
     {
         public int CursorTop => Console.CursorTop;

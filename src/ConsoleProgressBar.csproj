@@ -23,6 +23,10 @@
     <AssemblyTitle>Progress Bar .NET Standard 1.3</AssemblyTitle>
   </PropertyGroup>
   
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net45'">
+    <DefineConstants>HAVE_EXCLUDE_FROM_COVERAGE</DefineConstants>
+  </PropertyGroup>
+  
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
     <DebugType>full</DebugType>
     <DebugSymbols>True</DebugSymbols>
