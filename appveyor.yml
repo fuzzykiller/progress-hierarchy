@@ -8,12 +8,13 @@ build_script:
     dotnet build
 artifacts:
   - path: '**\*.nupkg'
+    name: NugetPackages
 
 deploy:
   provider: NuGet
   api_key:
     secure: fRlF4yx/WN882TB6FkIPbSDyoViXQWZlRH1MVdUTdSlrLXivTCNFBHJpvwFv+1sF
   skip_symbols: false
-  artifact: ConsoleProgressBar.nupkg
+  artifact: NugetPackages
   on:
     appveyor_repo_tag: true
