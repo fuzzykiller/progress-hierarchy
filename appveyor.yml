@@ -21,7 +21,7 @@ deploy:
   - provider: GitHub
     auth_token:
       secure: Mnu0uEhknV6UjNauoMJTAGb3BJZjpfrul8JgoyKwY9LzREkLCodCHMuVFN6MksyR
-    release: Version $(appveyor_repo_tag_name)
+    release: $(appveyor_repo_tag_name)
     description: ''
     artifact: NugetPackages
     draft: true
