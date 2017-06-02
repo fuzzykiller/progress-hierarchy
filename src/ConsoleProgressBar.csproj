@@ -13,6 +13,10 @@
     <PackageId>ProgressBar</PackageId>
     <PackageTags>progress progress-reporting thread-safe progress-bar command-line console</PackageTags>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    
+    <PackageLicenseUrl>https://raw.githubusercontent.com/fuzzykiller/progress-hierarchy/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/fuzzykiller/progress-hierarchy/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/fuzzykiller/progress-hierarchy.git</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'net45'">
