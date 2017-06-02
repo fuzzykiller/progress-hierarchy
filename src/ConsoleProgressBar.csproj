@@ -6,13 +6,14 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <VersionPrefix>1.0.0</VersionPrefix>
     <VersionSuffix Condition="'$(APPVEYOR_REPO_TAG)'=='false'">$(APPVEYOR_BUILD_ID)</VersionSuffix>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    
     <Authors>Daniel Betz</Authors>
-    <Product>ProgressBar</Product>
+    <Product>ConsoleProgressBar</Product>
     <Description>Command-line progress bar &amp; high-performance thread-safe hierarchical progress reporting</Description>
     <Copyright>Copyright © Daniel Betz 2017</Copyright>
-    <PackageId>ProgressBar</PackageId>
+    <PackageId>ConsoleProgressBar</PackageId>
     <PackageTags>progress progress-reporting thread-safe progress-bar command-line console</PackageTags>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     
     <PackageLicenseUrl>https://raw.githubusercontent.com/fuzzykiller/progress-hierarchy/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/fuzzykiller/progress-hierarchy/</PackageProjectUrl>
@@ -35,4 +36,5 @@
     <DebugType>full</DebugType>
     <DebugSymbols>True</DebugSymbols>
   </PropertyGroup>
+  
 </Project>
