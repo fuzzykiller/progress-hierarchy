@@ -94,6 +94,8 @@ namespace ConsoleProgressBar
                 _initialCursorTop = _console.CursorTop;
             }
 
+            var displayedProgress = Math.Max(0, Math.Min(eventArgs.Progress, 1));
+
             var availableWidth = _console.WindowWidth - 1; // Writing to end causes implicit line wrap
 
             var barWidth = (int)(availableWidth * Width);
@@ -103,7 +105,7 @@ namespace ConsoleProgressBar
             var statusText = CreateStatusText(eventArgs.Messages, textWidth);
 
             var barInnerWidth = Math.Max(0, barWidth - 12); // "[] 100.00 % "
-            var barFillWidth = (int)(barInnerWidth * eventArgs.Progress);
+            var barFillWidth = (int)(barInnerWidth * displayedProgress);
             var barString = new string('#', barFillWidth).PadRight(barInnerWidth);
 
             // ReSharper disable once UseStringInterpolation
