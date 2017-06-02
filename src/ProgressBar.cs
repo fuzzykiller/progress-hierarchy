@@ -137,7 +137,7 @@ namespace ConsoleProgressBar
         /// <returns>Status text, made to fit into <paramref name="maxWidth"/>.</returns>
         protected string CreateStatusText(IReadOnlyList<string> messages, int maxWidth)
         {
-            var statusText = string.Join(" – ", messages);
+            var statusText = string.Join(" - ", messages);
             statusText = statusText.LimitLength(maxWidth);
             statusText = statusText.PadRightSurrogateAware(maxWidth);
 
