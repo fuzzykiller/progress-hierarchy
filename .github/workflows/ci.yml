@@ -36,9 +36,7 @@ jobs:
           name: dist
       - name: Publish package to GitHub
         run: |
-          dotnet nuget push "*.nupkg" \
-            --api-key "${{ secrets.GITHUB_TOKEN }}" \
-            --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
+          dotnet nuget push "*.nupkg" --api-key "${{ secrets.GITHUB_TOKEN }}" --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
   
   release_nuget:
     name: Release to NuGet.org
@@ -52,9 +50,7 @@ jobs:
           name: dist
       - name: Publish package to NuGet.org
         run: |
-          dotnet nuget push "*.nupkg" \
-            --api-key "${{ secrets.NUGET_API_KEY }}" \
-            --source https://api.nuget.org/v3/index.json
+          dotnet nuget push "*.nupkg" --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json
 
   release:
     name: Release
