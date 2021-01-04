@@ -1,6 +1,6 @@
 # progress-hierarchy
 
-[![Build status](https://ci.appveyor.com/api/projects/status/608vb74fnm50iv8h/branch/master?svg=true)](https://ci.appveyor.com/project/fuzzykiller/progress-hierarchy/branch/master) [![NuGet](https://img.shields.io/nuget/v/ConsoleProgressBar.svg)](https://www.nuget.org/packages/ConsoleProgressBar/)
+[![NuGet](https://img.shields.io/nuget/v/ConsoleProgressBar.svg)](https://www.nuget.org/packages/ConsoleProgressBar/)
 
 ![preview animation](.img/progressbar.gif)
 
