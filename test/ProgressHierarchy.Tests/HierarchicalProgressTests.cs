@@ -4,14 +4,12 @@ using NUnit.Framework;
 
 namespace ProgressHierarchy.Tests
 {
-    using ProgressHierarchy;
-    
-    public class ProgressTests
+    public class HierarchicalProgressTests
     {
         [Test]
         public void Progress_Report_raises_event()
         {
-            var sut = new Progress();
+            var sut = new HierarchicalProgress();
 
             var eventsRaised = 0;
             sut.ProgressChanged += (sender, args) => eventsRaised++;
@@ -24,7 +22,7 @@ namespace ProgressHierarchy.Tests
         [Test]
         public void Progress_Report_doesnt_throw_without_subscriber()
         {
-            var sut = new Progress();
+            var sut = new HierarchicalProgress();
 
             Assert.That(() => sut.Report(0.5), Throws.Nothing);
         }
@@ -32,9 +30,9 @@ namespace ProgressHierarchy.Tests
         [Test]
         public void Progress_Report_raises_correct_args()
         {
-            var sut = new Progress();
+            var sut = new HierarchicalProgress();
 
-            var eventArgs = new List<ProgressChangedEventArgs>();
+            var eventArgs = new List<HierarchicalProgressChangedEventArgs>();
             sut.ProgressChanged += (sender, args) => eventArgs.Add(args);
 
             sut.Report(0.5, "Testing");
@@ -47,9 +45,9 @@ namespace ProgressHierarchy.Tests
         [Test]
         public void Progress_Dispose_raises_100_percent_event()
         {
-            var sut = new Progress();
+            var sut = new HierarchicalProgress();
 
-            var eventArgs = new List<ProgressChangedEventArgs>();
+            var eventArgs = new List<HierarchicalProgressChangedEventArgs>();
             sut.ProgressChanged += (sender, args) => eventArgs.Add(args);
             sut.Dispose();
 
@@ -60,7 +58,7 @@ namespace ProgressHierarchy.Tests
         [Test]
         public void Methods_on_disposed_instance_throw()
         {
-            var sut = new Progress();
+            var sut = new HierarchicalProgress();
             sut.Dispose();
 
             Assert.That(() => sut.Report(0.5), Throws.InstanceOf<ObjectDisposedException>());
@@ -73,10 +71,10 @@ namespace ProgressHierarchy.Tests
         [Test]
         public void Event_handlers_can_be_added_and_removed()
         {
-            var sut = new Progress();
+            var sut = new HierarchicalProgress();
 
             var eventCount = 0;
-            void ProgressChangedEventHandler(object sender, ProgressChangedEventArgs args) => eventCount++;
+            void ProgressChangedEventHandler(object sender, HierarchicalProgressChangedEventArgs args) => eventCount++;
 
             sut.ProgressChanged += ProgressChangedEventHandler;
             
@@ -92,7 +90,7 @@ namespace ProgressHierarchy.Tests
         [Test]
         public void Fork_scale_smaller_0_throws()
         {
-            var sut = new Progress();
+            var sut = new HierarchicalProgress();
             
             Assert.That(() => sut.Fork(-1), Throws.InstanceOf<ArgumentOutOfRangeException>());
         }
@@ -100,7 +98,7 @@ namespace ProgressHierarchy.Tests
         [Test]
         public void Report_after_Fork_throws()
         {
-            var sut = new Progress();
+            var sut = new HierarchicalProgress();
             sut.Fork();
 
             Assert.That(() => sut.Report(0.5), Throws.InvalidOperationException);
@@ -109,7 +107,7 @@ namespace ProgressHierarchy.Tests
         [Test]
         public void Fork_after_Report_throws()
         {
-            var sut = new Progress();
+            var sut = new HierarchicalProgress();
             sut.Report(0.5);
 
             Assert.That(() => sut.Fork(), Throws.InvalidOperationException);
@@ -118,9 +116,9 @@ namespace ProgressHierarchy.Tests
         [Test]
         public void Forked_progress_scales_correctly()
         {
-            var sut = new Progress();
+            var sut = new HierarchicalProgress();
 
-            var eventArgs = new List<ProgressChangedEventArgs>();
+            var eventArgs = new List<HierarchicalProgressChangedEventArgs>();
             sut.ProgressChanged += (sender, args) => eventArgs.Add(args);
 
             var sut2 = sut.Fork(0.5);
@@ -134,9 +132,9 @@ namespace ProgressHierarchy.Tests
         [Test]
         public void Forked_progress_concatenates_messages_correctly()
         {
-            var sut = new Progress();
+            var sut = new HierarchicalProgress();
 
-            var eventArgs = new List<ProgressChangedEventArgs>();
+            var eventArgs = new List<HierarchicalProgressChangedEventArgs>();
             sut.ProgressChanged += (sender, args) => eventArgs.Add(args);
 
             var sut2 = sut.Fork(message:"Forking");
@@ -147,7 +145,7 @@ namespace ProgressHierarchy.Tests
             Assert.That(eventArgs[0].Messages, Is.EqualTo(new[] { "Forking", "Testing" }));
         }
 
-        private static void NoopEventHandler(object o, ProgressChangedEventArgs progressChangedEventArgs)
+        private static void NoopEventHandler(object o, HierarchicalProgressChangedEventArgs hierarchicalProgressChangedEventArgs)
         {
         }
     }

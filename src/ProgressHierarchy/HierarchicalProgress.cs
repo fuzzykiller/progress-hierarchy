@@ -8,7 +8,7 @@ namespace ProgressHierarchy
     /// <summary>
     /// Provides thread-safe hierarchical progress reporting. This class cannot be inherited.
     /// </summary>
-    public sealed class Progress : IDisposable, IProgress<double>
+    public sealed class HierarchicalProgress : IDisposable, IProgress<double>
     {
         private delegate void ParentProgressChangedHandler(double progress, IReadOnlyList<string> messages);
 
@@ -29,22 +29,22 @@ namespace ProgressHierarchy
         /// <remarks>Used by sub progress to efficiently report to parent progress</remarks>
         private ParentProgressChangedHandler _parentProgressChangedHandler;
 
-        private event ProgressChangedEventHandler InternalProgressChanged;
+        private event HierarchicalProgressChangedEventHandler InternalProgressChanged;
 
         /// <summary>
         /// Occurs when progress changes.
         /// </summary>
-        /// <exception cref="ObjectDisposedException">The <see cref="Progress"/> instance was already disposed.</exception>
-        public event ProgressChangedEventHandler ProgressChanged
+        /// <exception cref="ObjectDisposedException">The <see cref="HierarchicalProgress"/> instance was already disposed.</exception>
+        public event HierarchicalProgressChangedEventHandler ProgressChanged
         {
             add
             {
-                if (_disposed) throw new ObjectDisposedException(nameof(Progress));
+                if (_disposed) throw new ObjectDisposedException(nameof(HierarchicalProgress));
                 InternalProgressChanged += value;
             }
             remove
             {
-                if (_disposed) throw new ObjectDisposedException(nameof(Progress));
+                if (_disposed) throw new ObjectDisposedException(nameof(HierarchicalProgress));
                 InternalProgressChanged -= value;
             }
         }
@@ -53,8 +53,8 @@ namespace ProgressHierarchy
         /// Report progress.
         /// </summary>
         /// <param name="progress">Progress percentage.</param>
-        /// <exception cref="ObjectDisposedException">The <see cref="Progress"/> instance was already disposed.</exception>
-        /// <exception cref="InvalidOperationException">The <see cref="Fork"/> method was called on this <see cref="Progress"/> instance.</exception>
+        /// <exception cref="ObjectDisposedException">The <see cref="HierarchicalProgress"/> instance was already disposed.</exception>
+        /// <exception cref="InvalidOperationException">The <see cref="Fork"/> method was called on this <see cref="HierarchicalProgress"/> instance.</exception>
         public void Report(double progress)
         {
             Report(progress, null);
@@ -65,11 +65,11 @@ namespace ProgressHierarchy
         /// </summary>
         /// <param name="progress">Progress percentage.</param>
         /// <param name="message">Optional message that will be reported with the current progress.</param>
-        /// <exception cref="ObjectDisposedException">The <see cref="Progress"/> instance was already disposed.</exception>
-        /// <exception cref="InvalidOperationException">The <see cref="Fork"/> method was called on this <see cref="Progress"/> instance.</exception>
+        /// <exception cref="ObjectDisposedException">The <see cref="HierarchicalProgress"/> instance was already disposed.</exception>
+        /// <exception cref="InvalidOperationException">The <see cref="Fork"/> method was called on this <see cref="HierarchicalProgress"/> instance.</exception>
         public void Report(double progress, string message)
         {
-            if (_disposed) throw new ObjectDisposedException(nameof(Progress));
+            if (_disposed) throw new ObjectDisposedException(nameof(HierarchicalProgress));
 
             var status = (Status)Interlocked.CompareExchange(
                 ref _status,
@@ -87,10 +87,10 @@ namespace ProgressHierarchy
         /// </summary>
         /// <param name="scale">Scale of the forked sub-progress. Percentage ≥0.</param>
         /// <param name="message">Optional message that describes the sub-progress.</param>
-        /// <returns><see cref="Progress"/> that is linked with and reports via this instance.</returns>
-        public Progress Fork(double scale = 1D, string message = null)
+        /// <returns><see cref="HierarchicalProgress"/> that is linked with and reports via this instance.</returns>
+        public HierarchicalProgress Fork(double scale = 1D, string message = null)
         {
-            if (_disposed) throw new ObjectDisposedException(nameof(Progress));
+            if (_disposed) throw new ObjectDisposedException(nameof(HierarchicalProgress));
             if (scale < 0) throw new ArgumentOutOfRangeException(nameof(scale), scale, "Scale is smaller than 0");
 
             var status = (Status)Interlocked.CompareExchange(ref _status, (int)Status.Forked, (int)Status.None);
@@ -100,7 +100,7 @@ namespace ProgressHierarchy
 
             _forkMessage = message != null ? new[] { message } : null;
 
-            var subProgress = new Progress();
+            var subProgress = new HierarchicalProgress();
             subProgress._parentProgressChangedHandler =
                 (progress, messages) => UpdateProgressOnSubProgressChanged(
                     progress,
@@ -112,7 +112,7 @@ namespace ProgressHierarchy
         }
 
         /// <summary>
-        /// Finish the current <see cref="Progress"/>, setting it to 100%. Disconnects all event handlers.
+        /// Finish the current <see cref="HierarchicalProgress"/>, setting it to 100%. Disconnects all event handlers.
         /// </summary>
         public void Dispose()
         {
@@ -159,7 +159,7 @@ namespace ProgressHierarchy
             var handler = InternalProgressChanged;
             if (handler != null)
             {
-                var eventArgs = new ProgressChangedEventArgs(progress, messages);
+                var eventArgs = new HierarchicalProgressChangedEventArgs(progress, messages);
                 handler.Invoke(this, eventArgs);
             }
         }

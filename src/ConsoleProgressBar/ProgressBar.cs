@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using ProgressHierarchy;
 
 namespace ConsoleProgressBar
 {
-    using ProgressHierarchy;
-
     /// <summary>
     /// Represents a console progress bar.
     /// </summary>
     public class ProgressBar : IDisposable
     {
         private readonly object _syncRoot = new object();
-        private ProgressChangedEventArgs _lastEventArgs;
+        private HierarchicalProgressChangedEventArgs _lastEventArgs;
         private double _width;
         private int _initialCursorTop = -1;
 
@@ -22,8 +21,8 @@ namespace ConsoleProgressBar
         public ProgressBar()
         {
             Width = 0.6;
-            Progress = new Progress();
-            Progress.ProgressChanged += ProgressOnProgressChanged;
+            HierarchicalProgress = new HierarchicalProgress();
+            HierarchicalProgress.ProgressChanged += ProgressOnProgressChanged;
         }
 
         /// <summary>
@@ -58,9 +57,9 @@ namespace ConsoleProgressBar
         }
 
         /// <summary>
-        /// Gets the progress bar’s root progress scope
+        /// Gets the progress bar’s hierarchical progress root.
         /// </summary>
-        public Progress Progress { get; }
+        public HierarchicalProgress HierarchicalProgress { get; }
 
         /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
         public void Dispose()
@@ -77,7 +76,7 @@ namespace ConsoleProgressBar
         {
             if (disposing)
             {
-                Progress.Dispose();
+                HierarchicalProgress.Dispose();
 
                 if (_initialCursorTop != -1)
                 {
@@ -92,7 +91,7 @@ namespace ConsoleProgressBar
         /// Render progress bar to console.
         /// </summary>
         /// <param name="eventArgs">Progress event to render</param>
-        protected virtual void Render(ProgressChangedEventArgs eventArgs)
+        protected virtual void Render(HierarchicalProgressChangedEventArgs eventArgs)
         {
             if (_initialCursorTop == -1)
             {
@@ -149,7 +148,7 @@ namespace ConsoleProgressBar
             return statusText;
         }
 
-        private void ProgressOnProgressChanged(object sender, ProgressChangedEventArgs eventArgs)
+        private void ProgressOnProgressChanged(object sender, HierarchicalProgressChangedEventArgs eventArgs)
         {
             var previousEventArgs = _lastEventArgs;
 
@@ -171,7 +170,7 @@ namespace ConsoleProgressBar
             }
         }
 
-        private static bool Equals(ProgressChangedEventArgs a, ProgressChangedEventArgs b)
+        private static bool Equals(HierarchicalProgressChangedEventArgs a, HierarchicalProgressChangedEventArgs b)
         {
             if (ReferenceEquals(a, b)) return true;
 

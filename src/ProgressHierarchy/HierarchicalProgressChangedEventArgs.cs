@@ -4,17 +4,17 @@ using System.Collections.Generic;
 namespace ProgressHierarchy
 {
     /// <summary>
-    /// Provides data for the <see cref="ProgressHierarchy.Progress.ProgressChanged"/> event.
+    /// Provides data for the <see cref="HierarchicalProgress.ProgressChanged"/> event.
     /// </summary>
     /// <remarks>Uses fields for performance reasons</remarks>
-    public class ProgressChangedEventArgs : EventArgs
+    public class HierarchicalProgressChangedEventArgs : EventArgs
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProgressChangedEventArgs"/> class.
+        /// Initializes a new instance of the <see cref="HierarchicalProgressChangedEventArgs"/> class.
         /// </summary>
         /// <param name="progress">Current progress percentage.</param>
         /// <param name="messages">Collection of messages associated with current progress, ordered by specificity.</param>
-        public ProgressChangedEventArgs(double progress, IReadOnlyList<string> messages)
+        public HierarchicalProgressChangedEventArgs(double progress, IReadOnlyList<string> messages)
         {
             Progress = progress;
             Messages = messages;

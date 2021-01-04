@@ -11,7 +11,7 @@ namespace ConsoleProgressBar.Demo
 
             using (var pb = new ProgressBar())
             {
-                using (var p1 = pb.Progress.Fork(0.33, "Task 1"))
+                using (var p1 = pb.HierarchicalProgress.Fork(0.33, "Task 1"))
                 {
                     p1.Fork(0.1, "Hello there!").Dispose();
                     Thread.Sleep(500);
@@ -26,7 +26,7 @@ namespace ConsoleProgressBar.Demo
                     }
                 }
 
-                using (var p2 = pb.Progress.Fork(0.66))
+                using (var p2 = pb.HierarchicalProgress.Fork(0.66))
                 {
                     for (int i = 0; i < 33; i++)
                     {

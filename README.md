@@ -6,16 +6,16 @@
 
 Provides a .NET console progress bar that supports absolute reporting. Comes coupled with support for hierarchical progress reporting.
 
-The `Progress` class can be used without the progress bar. It’s thread-safe and lock-free. It is, however, not asynchronous. The `ProgressChanged` event handler will be called synchronously by the thread currently reporting its progress.
+The `HierarchicalProgress` class can be used without the progress bar. It’s thread-safe and lock-free. It is, however, not asynchronous. The `ProgressChanged` event handlers will be called synchronously by the thread currently reporting its progress.
 
-The `Progress` class implements `System.IProgress<double>`.
+The `HierarchicalProgress` class implements `System.IProgress<double>`.
 
 # Usage
 
-## `Progress`
+## `HierarchicalProgress`
 
 ```C#
-using (var p = new Progress())
+using (var p = new HierarchicalProgress())
 {
     p.ProgressChanged += OnProgressChanged;
     
@@ -47,12 +47,12 @@ using (var p = new Progress())
 ```C#
 using (var pb = new ProgressBar())
 {
-    using (var p1 = pb.Progress.Fork(0.5))
+    using (var p1 = pb.HierarchicalProgress.Fork(0.5))
     {
         // do stuff
     }
     
-    using (var p2 = pb.Progress.Fork(0.5))
+    using (var p2 = pb.HierarchicalProgress.Fork(0.5))
     {
         // do stuff
     }
