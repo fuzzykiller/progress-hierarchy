@@ -1,5 +1,6 @@
 # progress-hierarchy
 
+[![CI Build](https://github.com/fuzzykiller/progress-hierarchy/workflows/CI%20Build/badge.svg)](https://github.com/fuzzykiller/progress-hierarchy/actions)
 [![NuGet](https://img.shields.io/nuget/v/ConsoleProgressBar.svg)](https://www.nuget.org/packages/ConsoleProgressBar/)
 
 ![preview animation](.img/progressbar.gif)
