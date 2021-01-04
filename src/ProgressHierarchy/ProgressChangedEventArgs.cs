@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ConsoleProgressBar
+namespace ProgressHierarchy
 {
     /// <summary>
-    /// Provides data for the <see cref="ConsoleProgressBar.Progress.ProgressChanged"/> event.
+    /// Provides data for the <see cref="ProgressHierarchy.Progress.ProgressChanged"/> event.
     /// </summary>
     /// <remarks>Uses fields for performance reasons</remarks>
     public class ProgressChangedEventArgs : EventArgs
@@ -13,7 +13,7 @@ namespace ConsoleProgressBar
         /// Initializes a new instance of the <see cref="ProgressChangedEventArgs"/> class.
         /// </summary>
         /// <param name="progress">Current progress percentage.</param>
-        /// <param name="messages">Collection of messages associated with current progress, ordered by specifity.</param>
+        /// <param name="messages">Collection of messages associated with current progress, ordered by specificity.</param>
         public ProgressChangedEventArgs(double progress, IReadOnlyList<string> messages)
         {
             Progress = progress;
@@ -26,7 +26,7 @@ namespace ConsoleProgressBar
         public readonly double Progress;
 
         /// <summary>
-        /// Messages associated with current progress, ordered by specifity.
+        /// Messages associated with current progress, ordered by specificity.
         /// </summary>
         public readonly IReadOnlyList<string> Messages;
     }

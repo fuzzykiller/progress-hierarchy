@@ -1,12 +1,21 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.6
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleProgressBar.Tests", "test\ConsoleProgressBar.Tests.csproj", "{07406E62-2DC0-42A6-B675-2B9FCF2E50AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleProgressBar.Tests", "test\ConsoleProgressBar.Tests\ConsoleProgressBar.Tests.csproj", "{07406E62-2DC0-42A6-B675-2B9FCF2E50AF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleProgressBar", "src\ConsoleProgressBar.csproj", "{A05C85C9-F6CC-4558-883C-51DE0DB9882D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleProgressBar", "src\ConsoleProgressBar\ConsoleProgressBar.csproj", "{A05C85C9-F6CC-4558-883C-51DE0DB9882D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleProgressBar.Demo", "demo\ConsoleProgressBar.Demo.csproj", "{02D511CF-C886-498C-B281-32900FE73C42}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProgressHierarchy", "src\ProgressHierarchy\ProgressHierarchy.csproj", "{DA962F75-3437-48DC-A94E-D17F37ED92C8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProgressHierarchy.Tests", "test\ProgressHierarchy.Tests\ProgressHierarchy.Tests.csproj", "{F705D623-7298-4E9F-9038-D090BC88B778}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{10CE443A-B478-4B2A-97DA-6EFF3F1AEBC8}"
+ProjectSection(SolutionItems) = preProject
+	src\Directory.Build.props = src\Directory.Build.props
+EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,8 +35,19 @@ Global
 		{02D511CF-C886-498C-B281-32900FE73C42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02D511CF-C886-498C-B281-32900FE73C42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02D511CF-C886-498C-B281-32900FE73C42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA962F75-3437-48DC-A94E-D17F37ED92C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA962F75-3437-48DC-A94E-D17F37ED92C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA962F75-3437-48DC-A94E-D17F37ED92C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA962F75-3437-48DC-A94E-D17F37ED92C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F705D623-7298-4E9F-9038-D090BC88B778}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F705D623-7298-4E9F-9038-D090BC88B778}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F705D623-7298-4E9F-9038-D090BC88B778}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F705D623-7298-4E9F-9038-D090BC88B778}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7A5762A1-175E-452B-9DCF-01CA073CC0D1}
 	EndGlobalSection
 EndGlobal

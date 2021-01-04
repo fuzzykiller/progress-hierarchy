@@ -2,15 +2,10 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>netcoreapp1.1</TargetFrameworks>
-  </PropertyGroup>
-  
-  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
-    <DebugType>full</DebugType>
-    <DebugSymbols>True</DebugSymbols>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\src\ConsoleProgressBar.csproj" />
+    <ProjectReference Include="..\src\ConsoleProgressBar\ConsoleProgressBar.csproj" />
   </ItemGroup>
 </Project>

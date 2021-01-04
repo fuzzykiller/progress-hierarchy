@@ -4,12 +4,13 @@ using System.Threading;
 
 namespace ConsoleProgressBar
 {
+    using ProgressHierarchy;
+
     /// <summary>
     /// Represents a console progress bar.
     /// </summary>
     public class ProgressBar : IDisposable
     {
-        private readonly IConsole _console = new SystemConsole();
         private readonly object _syncRoot = new object();
         private ProgressChangedEventArgs _lastEventArgs;
         private double _width;
@@ -25,15 +26,15 @@ namespace ConsoleProgressBar
             Progress.ProgressChanged += ProgressOnProgressChanged;
         }
 
-        internal ProgressBar(IConsole console)
-        {
-            _console = console;
-        }
-
         /// <summary>
         /// Whether to show the associated message (if any) on a separate line
         /// </summary>
         public bool StatusOnSeparateLine { get; set; }
+
+        /// <summary>
+        /// Character that is used to fill the progress bar, defaults to '#'
+        /// </summary>
+        public char BarCharacter { get; set; } = '#';
 
         /// <summary>
         /// Gets or sets the width (percent) of the progress bar. Larger values may hide messages. Consider using <see cref="StatusOnSeparateLine"/>.
@@ -46,7 +47,10 @@ namespace ConsoleProgressBar
             {
                 if (value < 0 || value > 1)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), value, "Width is smaller than 0 or larger than 1.");
+                    throw new ArgumentOutOfRangeException(
+                        nameof(value),
+                        value,
+                        "Width is smaller than 0 or larger than 1.");
                 }
 
                 _width = value;
@@ -78,7 +82,8 @@ namespace ConsoleProgressBar
                 if (_initialCursorTop != -1)
                 {
                     var verticalOffset = (StatusOnSeparateLine ? 2 : 1);
-                    _console.SetCursorPosition(0, _initialCursorTop + verticalOffset);
+                    int top = _initialCursorTop + verticalOffset;
+                    Console.SetCursorPosition(0, top);
                 }
             }
         }
@@ -91,12 +96,12 @@ namespace ConsoleProgressBar
         {
             if (_initialCursorTop == -1)
             {
-                _initialCursorTop = _console.CursorTop;
+                _initialCursorTop = Console.CursorTop;
             }
 
             var displayedProgress = Math.Max(0, Math.Min(eventArgs.Progress, 1));
 
-            var availableWidth = _console.WindowWidth - 1; // Writing to end causes implicit line wrap
+            var availableWidth = Console.WindowWidth - 1; // Writing to end causes implicit line wrap
 
             var barWidth = (int)(availableWidth * Width);
             var textOffset = StatusOnSeparateLine ? 0 : barWidth;
@@ -106,7 +111,7 @@ namespace ConsoleProgressBar
 
             var barInnerWidth = Math.Max(0, barWidth - 12); // "[] 100.00 % "
             var barFillWidth = (int)(barInnerWidth * displayedProgress);
-            var barString = new string('#', barFillWidth).PadRight(barInnerWidth);
+            var barString = new string(BarCharacter, barFillWidth).PadRight(barInnerWidth);
 
             // ReSharper disable once UseStringInterpolation
             var line1 = string.Format(
@@ -117,16 +122,16 @@ namespace ConsoleProgressBar
 
             line1 = line1.PadRightSurrogateAware(availableWidth);
 
-            _console.Write(line1);
+            Console.Write(line1);
 
             if (StatusOnSeparateLine)
             {
                 statusText = statusText.PadRightSurrogateAware(availableWidth);
-                _console.WriteLine();
-                _console.Write(statusText);
+                Console.WriteLine();
+                Console.Write(statusText);
             }
-            
-            _console.SetCursorPosition(0, _initialCursorTop);
+
+            Console.SetCursorPosition(0, _initialCursorTop);
         }
 
         /// <summary>
@@ -135,7 +140,7 @@ namespace ConsoleProgressBar
         /// <param name="messages">List of messages, ordered from least specific to most specific.</param>
         /// <param name="maxWidth">Maximum text width in characters.</param>
         /// <returns>Status text, made to fit into <paramref name="maxWidth"/>.</returns>
-        protected string CreateStatusText(IReadOnlyList<string> messages, int maxWidth)
+        protected virtual string CreateStatusText(IReadOnlyList<string> messages, int maxWidth)
         {
             var statusText = string.Join(" - ", messages);
             statusText = statusText.LimitLength(maxWidth);

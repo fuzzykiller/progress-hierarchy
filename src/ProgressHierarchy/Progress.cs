@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
-namespace ConsoleProgressBar
+namespace ProgressHierarchy
 {
     /// <summary>
     /// Provides thread-safe hierarchical progress reporting. This class cannot be inherited.
@@ -71,8 +71,12 @@ namespace ConsoleProgressBar
         {
             if (_disposed) throw new ObjectDisposedException(nameof(Progress));
 
-            var status = (Status)Interlocked.CompareExchange(ref _status, (int)Status.ProgressReported, (int)Status.None);
-            if (status == Status.Forked) throw new InvalidOperationException("Progress has been forked. It can no longer be set explicitly.");
+            var status = (Status)Interlocked.CompareExchange(
+                ref _status,
+                (int)Status.ProgressReported,
+                (int)Status.None);
+            if (status == Status.Forked)
+                throw new InvalidOperationException("Progress has been forked. It can no longer be set explicitly.");
 
             var messageArray = message != null ? new[] { message } : new string[0];
             OnProgressChanged(progress, messageArray);
@@ -90,8 +94,10 @@ namespace ConsoleProgressBar
             if (scale < 0) throw new ArgumentOutOfRangeException(nameof(scale), scale, "Scale is smaller than 0");
 
             var status = (Status)Interlocked.CompareExchange(ref _status, (int)Status.Forked, (int)Status.None);
-            if (status == Status.ProgressReported) throw new InvalidOperationException("Progress has been explicitly reported. It can no longer be forked.");
-            
+            if (status == Status.ProgressReported)
+                throw new InvalidOperationException(
+                    "Progress has been explicitly reported. It can no longer be forked.");
+
             _forkMessage = message != null ? new[] { message } : null;
 
             var subProgress = new Progress();

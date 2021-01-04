@@ -1,4 +1,4 @@
-﻿namespace ConsoleProgressBar
+﻿namespace ProgressHierarchy
 {
     /// <summary>
     /// Represents the method that will handle the <see cref="Progress.ProgressChanged"/> event raised when the progress changes.
